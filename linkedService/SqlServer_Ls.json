@@ -1,0 +1,22 @@
+{
+	"name": "SqlServer_Ls",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"dbName": {
+				"type": "string"
+			},
+			"useName": {
+				"type": "string"
+			},
+			"password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=saivennelasqlserver.database.windows.net;Initial Catalog=@{linkedService().dbName};User ID=@{linkedService().useName};Password=@{linkedService().password}"
+		}
+	}
+}
