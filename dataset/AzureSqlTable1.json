@@ -1,0 +1,84 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "outputdatabase",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlusername": {
+					"value": "@dataset().serverusername",
+					"type": "Expression"
+				},
+				"sqluserpwd": {
+					"value": "@dataset().serveruserpwd",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"serverusername": {
+				"type": "String",
+				"defaultValue": "vennela"
+			},
+			"serveruserpwd": {
+				"type": "String",
+				"defaultValue": "Bujjis@1"
+			},
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Row_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Order_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Order_Date",
+				"type": "varchar"
+			},
+			{
+				"name": "Ship_Date",
+				"type": "varchar"
+			},
+			{
+				"name": "Ship_Mode",
+				"type": "varchar"
+			},
+			{
+				"name": "Customer_Id",
+				"type": "varchar"
+			},
+			{
+				"name": "Customer_name",
+				"type": "varchar"
+			},
+			{
+				"name": "Segment",
+				"type": "varchar"
+			},
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "City",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
