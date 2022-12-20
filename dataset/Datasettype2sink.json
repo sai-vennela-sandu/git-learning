@@ -1,0 +1,23 @@
+{
+	"name": "Datasettype2sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_data_datelssink",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "otpt",
+				"fileSystem": "saiadfdemo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
