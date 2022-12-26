@@ -7,7 +7,29 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "order_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "order_name",
+				"type": "varchar"
+			},
+			{
+				"name": "order_price",
+				"type": "varchar"
+			},
+			{
+				"name": "order_type",
+				"type": "varchar"
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
 			"table": "orders"
