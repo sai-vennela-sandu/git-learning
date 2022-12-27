@@ -52,50 +52,168 @@
 						"mappings": [
 							{
 								"source": {
-									"name": ""
+									"name": "Series_reference",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Serial Number",
+									"name": "Series_reference",
 									"type": "String",
 									"physicalType": "String"
 								}
 							},
 							{
 								"source": {
-									"name": ""
+									"name": "Period",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Company Name",
+									"name": "Period",
 									"type": "String",
 									"physicalType": "String"
 								}
 							},
 							{
 								"source": {
-									"name": ""
+									"name": "Data_value",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Employee Markme",
+									"name": "Data_value",
 									"type": "String",
 									"physicalType": "String"
 								}
 							},
 							{
 								"source": {
-									"name": ""
+									"name": "Suppressed",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Description",
+									"name": "Suppressed",
 									"type": "String",
 									"physicalType": "String"
 								}
 							},
 							{
 								"source": {
-									"name": ""
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Leave",
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UNITS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UNITS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Magnitude",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Magnitude",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Subject",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Groups",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Groups",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Series_title_1",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series_title_1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Series_title_2",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series_title_2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Series_title_3",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series_title_3",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Series_title_4",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series_title_4",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Series_title_5",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series_title_5",
 									"type": "String",
 									"physicalType": "String"
 								}
