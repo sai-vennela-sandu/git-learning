@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pipeline_cpy_with_date",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "task",
+						"referenceName": "getmetadata_source",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -25,6 +25,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -120,7 +121,7 @@
 										},
 										"inputs": [
 											{
-												"referenceName": "source",
+												"referenceName": "DS_cpy_gmd_source",
 												"type": "DatasetReference",
 												"parameters": {
 													"filename": {
@@ -132,7 +133,7 @@
 										],
 										"outputs": [
 											{
-												"referenceName": "sink",
+												"referenceName": "DS_cpy_gmd_sink",
 												"type": "DatasetReference"
 											}
 										]

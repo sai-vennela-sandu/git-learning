@@ -1,5 +1,5 @@
 {
-	"name": "source",
+	"name": "DS_cpy_gmd_source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

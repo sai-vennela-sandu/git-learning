@@ -1,5 +1,5 @@
 {
-	"name": "DS_cpy_gmd_sink",
+	"name": "DS_adls",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
@@ -10,14 +10,34 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "raw",
-				"fileSystem": "sample"
+				"fileSystem": "takdbblob"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "order_id",
+				"type": "String"
+			},
+			{
+				"name": "order_name",
+				"type": "String"
+			},
+			{
+				"name": "order_price",
+				"type": "String"
+			},
+			{
+				"name": "order_type",
+				"type": "String"
+			},
+			{
+				"name": "city",
+				"type": "String"
+			}
+		]
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"name": "task",
+	"name": "getmetadata_source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
