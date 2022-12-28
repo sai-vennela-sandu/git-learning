@@ -197,7 +197,13 @@
 										"inputs": [
 											{
 												"referenceName": "DS_adls_sqldb",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"file_name": {
+														"value": "@activity('Get Metadata1').output.itemName",
+														"type": "Expression"
+													}
+												}
 											}
 										],
 										"outputs": [
