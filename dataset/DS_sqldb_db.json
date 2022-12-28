@@ -1,0 +1,41 @@
+{
+	"name": "DS_sqldb_db",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_sql_db_1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Serial_Number",
+				"type": "varchar"
+			},
+			{
+				"name": "Company_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Employee_Markme",
+				"type": "varchar"
+			},
+			{
+				"name": "Description",
+				"type": "varchar"
+			},
+			{
+				"name": "Leave",
+				"type": "varchar"
+			},
+			{
+				"name": "current_dt",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp_date"
+		}
+	}
+}
