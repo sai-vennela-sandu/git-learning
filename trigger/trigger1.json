@@ -9,8 +9,7 @@
 			"recurrence": {
 				"frequency": "Hour",
 				"interval": 6,
-				"startTime": "2022-12-29T10:45:00",
-				"endTime": "2022-12-30T10:45:00",
+				"startTime": "2022-12-26T00:45:00",
 				"timeZone": "India Standard Time"
 			}
 		}
