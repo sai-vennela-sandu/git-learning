@@ -1,0 +1,24 @@
+{
+	"name": "pipeline_adls_db_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline_cpy_with_date",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 10,
+				"startTime": "2022-12-29T11:08:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
