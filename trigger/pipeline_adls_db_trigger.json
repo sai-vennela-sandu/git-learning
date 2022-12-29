@@ -1,6 +1,7 @@
 {
 	"name": "pipeline_adls_db_trigger",
 	"properties": {
+		"description": "schedule trigger daily",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
@@ -16,7 +17,8 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 10,
-				"startTime": "2022-12-29T11:08:00",
+				"startTime": "2022-12-29T16:48:00",
+				"endTime": "2022-12-30T11:15:07",
 				"timeZone": "India Standard Time"
 			}
 		}
