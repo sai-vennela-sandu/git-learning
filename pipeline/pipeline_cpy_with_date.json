@@ -200,7 +200,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"file_name": {
-														"value": "@activity('Get Metadata1').output.itemName",
+														"value": "@{item().name}",
 														"type": "Expression"
 													}
 												}
@@ -240,7 +240,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "AzureSqlSource",
 						"additionalColumns": [
 							{
 								"name": "timestamp",
@@ -250,14 +250,8 @@
 								}
 							}
 						],
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
@@ -270,9 +264,9 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Serial Number",
+									"name": "Serial_Number",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "Serial_Number",
@@ -282,9 +276,9 @@
 							},
 							{
 								"source": {
-									"name": "Company Name",
+									"name": "Company_Name",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "Company_Name",
@@ -294,9 +288,9 @@
 							},
 							{
 								"source": {
-									"name": "Employee Markme",
+									"name": "Employee_Markme",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "Employee_Markme",
@@ -308,7 +302,7 @@
 								"source": {
 									"name": "Description",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "Description",
@@ -320,7 +314,7 @@
 								"source": {
 									"name": "Leave",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "Leave",
@@ -330,8 +324,7 @@
 							},
 							{
 								"source": {
-									"name": "timestamp",
-									"type": "String"
+									"name": "timestamp"
 								},
 								"sink": {
 									"name": "timestamp",
@@ -349,7 +342,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_adls_sqldb",
+						"referenceName": "DS_sqldb_db",
 						"type": "DatasetReference"
 					}
 				],
