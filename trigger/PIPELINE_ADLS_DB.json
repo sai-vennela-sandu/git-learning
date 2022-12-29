@@ -1,6 +1,7 @@
 {
-	"name": "trigger3",
+	"name": "PIPELINE_ADLS_DB",
 	"properties": {
+		"description": "Daily trigger ",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
@@ -21,7 +22,7 @@
 				"timeZone": "India Standard Time",
 				"schedule": {
 					"minutes": [
-						15
+						23
 					],
 					"hours": [
 						17
