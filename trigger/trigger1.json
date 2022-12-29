@@ -7,19 +7,11 @@
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Day",
-				"interval": 1,
-				"startTime": "2022-12-29T10:45:00Z",
-				"endTime": "2022-12-30T10:45:00Z",
-				"timeZone": "UTC",
-				"schedule": {
-					"minutes": [
-						30
-					],
-					"hours": [
-						16
-					]
-				}
+				"frequency": "Hour",
+				"interval": 6,
+				"startTime": "2022-12-29T10:45:00",
+				"endTime": "2022-12-30T10:45:00",
+				"timeZone": "India Standard Time"
 			}
 		}
 	}
