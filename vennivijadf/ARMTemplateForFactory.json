@@ -1219,10 +1219,11 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger3')]",
+			"name": "[concat(parameters('factoryName'), '/PIPELINE_ADLS_DB')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Daily trigger ",
 				"annotations": [],
 				"runtimeState": "Started",
 				"pipelines": [
@@ -1244,7 +1245,7 @@
 						"timeZone": "India Standard Time",
 						"schedule": {
 							"minutes": [
-								15
+								23
 							],
 							"hours": [
 								17
