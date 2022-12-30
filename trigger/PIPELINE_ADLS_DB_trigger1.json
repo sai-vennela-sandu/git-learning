@@ -1,10 +1,17 @@
 {
-	"name": "PIPELINE_ADLS_DB",
+	"name": "PIPELINE_ADLS_DB_trigger1",
 	"properties": {
-		"description": "Daily trigger ",
+		"description": "Daily trigger from adls to Db",
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline_cpy_with_date",
+					"type": "PipelineReference"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
@@ -15,10 +22,10 @@
 				"timeZone": "India Standard Time",
 				"schedule": {
 					"minutes": [
-						23
+						25
 					],
 					"hours": [
-						17
+						16
 					]
 				}
 			}
