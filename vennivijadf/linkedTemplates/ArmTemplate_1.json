@@ -13,11 +13,11 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/PIPELINE_ADLS_DB')]",
+			"name": "[concat(parameters('factoryName'), '/PIPELINE_ADLS_DB_trigger1')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Daily trigger ",
+				"description": "Daily trigger from adls to Db",
 				"annotations": [],
 				"runtimeState": "Started",
 				"pipelines": [
@@ -39,10 +39,10 @@
 						"timeZone": "India Standard Time",
 						"schedule": {
 							"minutes": [
-								23
+								25
 							],
 							"hours": [
-								17
+								16
 							]
 						}
 					}

@@ -1157,6 +1157,46 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PIPELINE_ADLS_DB_trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Daily trigger from adls to Db",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline_cpy_with_date",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-12-29T11:38:00",
+						"endTime": "2022-12-30T11:38:00",
+						"timeZone": "India Standard Time",
+						"schedule": {
+							"minutes": [
+								25
+							],
+							"hours": [
+								16
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline_cpy_with_date')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_adls_db_trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1217,46 +1257,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PIPELINE_ADLS_DB')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Daily trigger ",
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pipeline_cpy_with_date",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-12-29T11:38:00",
-						"endTime": "2022-12-30T11:38:00",
-						"timeZone": "India Standard Time",
-						"schedule": {
-							"minutes": [
-								23
-							],
-							"hours": [
-								17
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipeline_cpy_with_date')]"
-			]
 		}
 	]
 }
