@@ -248,10 +248,6 @@
 									"value": "@utcNow()",
 									"type": "Expression"
 								}
-							},
-							{
-								"name": "date_file",
-								"value": "$$COLUMN:"
 							}
 						],
 						"queryTimeout": "02:00:00",
