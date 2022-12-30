@@ -1,0 +1,25 @@
+{
+	"name": "PL_ADL_DB_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline_cpy_with_date",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2022-12-30T11:18:00",
+				"endTime": "2022-12-31T11:18:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
