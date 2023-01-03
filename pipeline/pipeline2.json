@@ -203,14 +203,6 @@
 				]
 			}
 		],
-		"variables": {
-			"date": {
-				"type": "String"
-			},
-			"Date": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }

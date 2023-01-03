@@ -39,7 +39,7 @@
 					{
 						"activity": "Get  metadata",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
@@ -71,7 +71,7 @@
 								{
 									"activity": "Set variable1",
 									"dependencyConditions": [
-										"Skipped"
+										"Succeeded"
 									]
 								}
 							],
