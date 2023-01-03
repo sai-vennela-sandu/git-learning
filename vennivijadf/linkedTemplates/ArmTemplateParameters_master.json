@@ -5,35 +5,11 @@
 		"factoryName": {
 			"value": "vennivijadf"
 		},
-		"AzureDataLakeStorage1_accountKey": {
-			"value": ""
-		},
-		"LS_adls_sql_db_accountKey": {
-			"value": ""
-		},
-		"LS_sink_diff_dates_accountKey": {
-			"value": ""
-		},
 		"LS_sql_db_1_connectionString": {
 			"value": ""
 		},
 		"LS_sqldb_2_connectionString": {
 			"value": ""
-		},
-		"inputblob_connectionString": {
-			"value": ""
-		},
-		"outputdatabase_connectionString": {
-			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=saivennelasqlserver.database.windows.net;Initial Catalog=vennelasqldb;User ID=@{linkedService().sqlusername};Password=@{linkedService().sqluserpwd}"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"value": "https://vennela12.dfs.core.windows.net/"
-		},
-		"LS_adls_sql_db_properties_typeProperties_url": {
-			"value": "https://vennela12.dfs.core.windows.net/"
-		},
-		"LS_sink_diff_dates_properties_typeProperties_url": {
-			"value": "https://vennela12.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""
