@@ -1,0 +1,16 @@
+{
+	"name": "DS_DB1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_db1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp_03_01_2022"
+		}
+	}
+}
