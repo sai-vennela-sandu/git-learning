@@ -3,22 +3,30 @@
 	"properties": {
 		"description": "Daily trigger from adls to Db",
 		"annotations": [],
-		"runtimeState": "Stopped",
-		"pipelines": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline_ADLS_DB_withdate",
+					"type": "PipelineReference"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
 				"startTime": "2022-12-29T11:38:00",
-				"endTime": "2022-12-30T11:38:00",
+				"endTime": "2023-01-12T00:38:00",
 				"timeZone": "India Standard Time",
 				"schedule": {
 					"minutes": [
-						46
+						46,
+						29
 					],
 					"hours": [
-						16
+						18
 					]
 				}
 			}
