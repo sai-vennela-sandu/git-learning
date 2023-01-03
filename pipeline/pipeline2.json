@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "pipeline2",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get Metadata_Files",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -25,7 +25,6 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -38,7 +37,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Get Metadata_Files",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -47,7 +46,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
+						"value": "@activity('Get Metadata_Files').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -59,12 +58,12 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(substring(item().name,0,10),formatDateTime(utcNow(),'yyyy-MM-dd'))",
+									"value": "@equals(substring(item().name,0,10),formatDateTime(utcnow(),'yyyy-MM-dd'))",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
 									{
-										"name": "Wait1",
+										"name": "Wait_stage",
 										"type": "Wait",
 										"dependsOn": [],
 										"userProperties": [],
@@ -75,7 +74,7 @@
 								],
 								"ifTrueActivities": [
 									{
-										"name": "Copy data1",
+										"name": "Copy data_adls_db",
 										"type": "Copy",
 										"dependsOn": [],
 										"policy": {
@@ -89,15 +88,6 @@
 										"typeProperties": {
 											"source": {
 												"type": "DelimitedTextSource",
-												"additionalColumns": [
-													{
-														"name": "current_dt",
-														"value": {
-															"value": "@utcNow()",
-															"type": "Expression"
-														}
-													}
-												],
 												"storeSettings": {
 													"type": "AzureBlobFSReadSettings",
 													"recursive": true,
@@ -128,7 +118,10 @@
 												"referenceName": "DS_adls_db",
 												"type": "DatasetReference",
 												"parameters": {
-													"file_name": "@{item().name}"
+													"file_name": {
+														"value": "@{item().name}",
+														"type": "Expression"
+													}
 												}
 											}
 										],
@@ -146,7 +139,7 @@
 				}
 			},
 			{
-				"name": "Copy data2",
+				"name": "Copy data_db_db",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -187,78 +180,6 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "Serial_Number",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Serial_Number",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Company_Name",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Company_Name",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Employee_Markme",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Employee_Markme",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Descriptions",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Descriptions",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Leave",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Leave",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "timestamp"
-								},
-								"sink": {
-									"name": "timestamp",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							}
-						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
