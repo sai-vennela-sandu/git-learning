@@ -1,5 +1,5 @@
 {
-	"name": "pipeline3",
+	"name": "pipeline_with_FILEdate_COL",
 	"properties": {
 		"activities": [
 			{
