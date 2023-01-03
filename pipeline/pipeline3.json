@@ -58,7 +58,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "Date",
-								"value": "@split(split(item().name,'_')[1],'.')[0]\n\n"
+								"value": {
+									"value": "@split(split(item().name,'_')[1],'.')[0]\n\n",
+									"type": "Expression"
+								}
 							}
 						},
 						{
