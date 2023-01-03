@@ -25,6 +25,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -108,7 +109,6 @@
 											},
 											"sink": {
 												"type": "AzureSqlSink",
-												"preCopyScript": "truncate table emp_03_01_2022",
 												"writeBehavior": "insert",
 												"sqlWriterUseTableLock": false,
 												"disableMetricsCollection": false
