@@ -118,7 +118,13 @@
 										"inputs": [
 											{
 												"referenceName": "DS_adls_db",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"file_name": {
+														"value": "@{item().name}",
+														"type": "Expression"
+													}
+												}
 											}
 										],
 										"outputs": [
