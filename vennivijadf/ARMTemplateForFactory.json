@@ -239,11 +239,6 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"variables": {
-					"date": {
-						"type": "String"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -260,7 +255,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadata1",
+						"name": "Get  metadata",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -278,8 +273,7 @@
 								"parameters": {}
 							},
 							"fieldList": [
-								"childItems",
-								"itemName"
+								"childItems"
 							],
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
@@ -296,7 +290,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Get Metadata1",
+								"activity": "Get  metadata",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -305,7 +299,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get Metadata1').output.childItems",
+								"value": "@activity('Get  metadata').output.childItems",
 								"type": "Expression"
 							},
 							"isSequential": true,
@@ -316,9 +310,9 @@
 									"dependsOn": [],
 									"userProperties": [],
 									"typeProperties": {
-										"variableName": "date",
+										"variableName": "Date",
 										"value": {
-											"value": "@split(split(item().name,'_')[1],'.')[0]",
+											"value": "@split(split(item().name,'_')[1],'.')[0]\n\n",
 											"type": "Expression"
 										}
 									}
@@ -330,7 +324,7 @@
 										{
 											"activity": "Set variable1",
 											"dependencyConditions": [
-												"Skipped"
+												"Succeeded"
 											]
 										}
 									],
@@ -347,9 +341,9 @@
 											"type": "DelimitedTextSource",
 											"additionalColumns": [
 												{
-													"name": "empfile_date",
+													"name": "OrderDate",
 													"value": {
-														"value": "@variables('date')",
+														"value": "@variables('Date')",
 														"type": "Expression"
 													}
 												}
@@ -404,7 +398,7 @@
 					"cancelAfter": {}
 				},
 				"variables": {
-					"date": {
+					"Date": {
 						"type": "String"
 					}
 				},
