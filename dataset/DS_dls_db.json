@@ -1,0 +1,41 @@
+{
+	"name": "DS_dls_db",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adls_db",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ordertable 05-01-2023.csv",
+				"folderPath": "Staging",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "orderid",
+				"type": "String"
+			},
+			{
+				"name": "ordername",
+				"type": "String"
+			},
+			{
+				"name": "orderprice",
+				"type": "String"
+			},
+			{
+				"name": "ordertype",
+				"type": "String"
+			}
+		]
+	}
+}
