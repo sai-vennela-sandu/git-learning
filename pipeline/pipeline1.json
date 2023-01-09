@@ -35,9 +35,21 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "If Condition1",
@@ -45,6 +57,10 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
+								"expression": {
+									"value": "@equals(substring(item().name,0,10),formatDateTime(utcnow(),'yyyy-MM-dd'))",
+									"type": "Expression"
+								},
 								"ifFalseActivities": [
 									{
 										"name": "Wait1",
