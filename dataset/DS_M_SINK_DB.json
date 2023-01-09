@@ -1,0 +1,16 @@
+{
+	"name": "DS_M_SINK_DB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_db1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Student_details"
+		}
+	}
+}
