@@ -39,7 +39,7 @@
 					{
 						"activity": "Get Metadata1",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
@@ -52,217 +52,63 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "If Condition1",
-							"type": "IfCondition",
+							"name": "SET_VARIABLE_FILE",
+							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"expression": {
-									"value": "@equals(substring(item().name,0,10),formatDateTime(utcnow(),'yyyy-MM-dd'))",
+								"variableName": "Date",
+								"value": {
+									"value": "@split(split(item().name,'_')[1],'.')[0]",
 									"type": "Expression"
-								},
-								"ifFalseActivities": [
-									{
-										"name": "Wait1",
-										"type": "Wait",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"waitTimeInSeconds": 1
+								}
+							}
+						},
+						{
+							"name": "DF_DB_ARCHIVE",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [
+								{
+									"activity": "SET_VARIABLE_FILE",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "dataflow2",
+									"type": "DataFlowReference",
+									"datasetParameters": {
+										"SINK1": {
+											"file_name": "@{item().name}"
 										}
 									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "CPY_ADLS_DB",
-										"type": "Copy",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"additionalColumns": [
-													{
-														"name": "Current_dt",
-														"value": {
-															"value": "@utcNow()",
-															"type": "Expression"
-														}
-													}
-												],
-												"storeSettings": {
-													"type": "AzureBlobFSReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"sink": {
-												"type": "AzureSqlSink",
-												"writeBehavior": "insert",
-												"sqlWriterUseTableLock": false
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"mappings": [
-													{
-														"source": {
-															"name": "ROW_ID",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "ROW_ID",
-															"type": "Int32",
-															"physicalType": "int"
-														}
-													},
-													{
-														"source": {
-															"name": "STUDENT_NAME",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "STUDENT_NAME",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "SCHOOL_NAME",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "SCHOOL_NAME",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "ADDRESS",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "ADDRESS",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "CITY",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "CITY",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "COUNTRY",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "COUNTRY",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "POSTAL",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "POSTAL",
-															"type": "Int32",
-															"physicalType": "int"
-														}
-													},
-													{
-														"source": {
-															"name": "PHONE",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "PHONE",
-															"type": "Int32",
-															"physicalType": "int"
-														}
-													},
-													{
-														"source": {
-															"name": "EMAILID",
-															"type": "String",
-															"physicalType": "String"
-														},
-														"sink": {
-															"name": "EMAILID",
-															"type": "String",
-															"physicalType": "varchar"
-														}
-													},
-													{
-														"source": {
-															"name": "Current_dt",
-															"type": "String"
-														},
-														"sink": {
-															"name": "Current_dt"
-														}
-													}
-												],
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "DS_M_SOURCE_ADLS_DB",
-												"type": "DatasetReference",
-												"parameters": {
-													"file_name": "@{item().name}"
-												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "DS_M_SINK_DB",
-												"type": "DatasetReference"
-											}
-										]
-									}
-								]
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
 							}
 						}
 					]
 				}
 			}
 		],
+		"variables": {
+			"Date": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
