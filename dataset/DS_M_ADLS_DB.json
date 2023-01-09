@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "student_2023-01-05.csv",
 				"folderPath": "task_con",
 				"fileSystem": "task"
 			},
