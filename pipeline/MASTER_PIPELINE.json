@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "MASTER_PIPELINE",
 	"properties": {
 		"activities": [
 			{
@@ -245,7 +245,7 @@
 												"referenceName": "DS_M_SOURCE_ADLS_DB",
 												"type": "DatasetReference",
 												"parameters": {
-													"file_name": "@item().name"
+													"file_name": "@{item().name}"
 												}
 											}
 										],
