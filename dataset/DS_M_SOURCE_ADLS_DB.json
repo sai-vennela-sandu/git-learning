@@ -5,6 +5,11 @@
 			"referenceName": "LS_adls_db",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"file_name": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

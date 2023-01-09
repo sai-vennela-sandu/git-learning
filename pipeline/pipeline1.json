@@ -243,7 +243,10 @@
 										"inputs": [
 											{
 												"referenceName": "DS_M_SOURCE_ADLS_DB",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"file_name": "@item().name"
+												}
 											}
 										],
 										"outputs": [
