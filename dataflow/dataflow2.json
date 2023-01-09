@@ -35,6 +35,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     limit: 613,",
 				"     ignoreNoFilesFound: false,",
 				"     moveFiles: ['/task_con','Archive_task']) ~> SOURCE1",
 				"SOURCE1 sink(allowSchemaDrift: true,",

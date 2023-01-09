@@ -1,5 +1,5 @@
 {
-	"name": "DS_M_SINK_DB",
+	"name": "DS_M_SINK_DB_DB",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_db1",
@@ -10,8 +10,7 @@
 		"schema": [
 			{
 				"name": "ROW_ID",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			},
 			{
 				"name": "STUDENT_NAME",
@@ -35,22 +34,24 @@
 			},
 			{
 				"name": "POSTAL",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			},
 			{
 				"name": "PHONE",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			},
 			{
 				"name": "EMAILID",
+				"type": "varchar"
+			},
+			{
+				"name": "Timestamp",
 				"type": "varchar"
 			}
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Student_details"
+			"table": "Student_information"
 		}
 	}
 }
