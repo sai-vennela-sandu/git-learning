@@ -15,10 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().file_name",
-					"type": "Expression"
-				},
+				"fileName": "Student 2023-01-09.csv",
 				"folderPath": "task_con",
 				"fileSystem": "task"
 			},
@@ -29,6 +26,10 @@
 			"quoteChar": "\""
 		},
 		"schema": [
+			{
+				"name": "ROW_ID",
+				"type": "String"
+			},
 			{
 				"name": "STUDENT_NAME",
 				"type": "String"

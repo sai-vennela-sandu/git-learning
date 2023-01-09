@@ -1,0 +1,61 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_M_ADLS_DB",
+						"type": "DatasetReference"
+					},
+					"name": "SOURCE1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_M_SOURCE_ADLS_DB",
+						"type": "DatasetReference"
+					},
+					"name": "SINK1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          STUDENT_NAME as string,",
+				"          SCHOOL_NAME as string,",
+				"          ADDRESS as string,",
+				"          CITY as string,",
+				"          COUNTRY as string,",
+				"          POSTAL as string,",
+				"          PHONE as string,",
+				"          EMAILID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     moveFiles: ['/task_con','Archive_task']) ~> SOURCE1",
+				"SOURCE1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ROW_ID as string,",
+				"          STUDENT_NAME as string,",
+				"          SCHOOL_NAME as string,",
+				"          ADDRESS as string,",
+				"          CITY as string,",
+				"          COUNTRY as string,",
+				"          POSTAL as string,",
+				"          PHONE as string,",
+				"          EMAILID as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SINK1"
+			]
+		}
+	}
+}
