@@ -49,8 +49,8 @@
 								"parameters": {}
 							},
 							"fieldList": [
-								"childItems",
-								"itemName"
+								"itemName",
+								"childItems"
 							],
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
@@ -974,7 +974,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "Student 2023-01-09.csv",
+						"fileName": "student_2023-01-05.csv",
 						"folderPath": "task_con",
 						"fileSystem": "task"
 					},

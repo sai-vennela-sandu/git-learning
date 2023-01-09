@@ -323,8 +323,8 @@
 								"parameters": {}
 							},
 							"fieldList": [
-								"childItems",
-								"itemName"
+								"itemName",
+								"childItems"
 							],
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
