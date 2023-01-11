@@ -6,19 +6,19 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_M_SOURCE_ADLS_DB",
+						"referenceName": "DS_var_adls",
 						"type": "DatasetReference"
 					},
-					"name": "SOURCE1"
+					"name": "source1"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_M_SINK_DB",
+						"referenceName": "DS_var_db",
 						"type": "DatasetReference"
 					},
-					"name": "SINK1",
+					"name": "sink1",
 					"rejectedDataLinkedService": {
 						"referenceName": "LS_adls_db",
 						"type": "LinkedServiceReference"
@@ -35,16 +35,15 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     limit: 613,",
 				"     ignoreNoFilesFound: false,",
-				"     moveFiles: ['sample','Archive_task']) ~> SOURCE1",
-				"SOURCE1 sink(allowSchemaDrift: true,",
+				"     moveFiles: ['/sample','Archive_task']) ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          Order_id as string,",
-				"          Order_name as string,",
-				"          Order_price as string,",
-				"          Order_type as string",
+				"          orderid as integer,",
+				"          ordername as string,",
+				"          orderprice as integer,",
+				"          ordertype as string",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -53,15 +52,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          Order_id = orderid,",
-				"          Order_name = ordername,",
-				"          Order_price = orderprice,",
-				"          Order_type = ordertype",
-				"     ),",
-				"     preCommands: [],",
-				"     postCommands: []) ~> SINK1"
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}

@@ -29,7 +29,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "orders_2023"
+			"table": "Order_update"
 		}
 	}
 }
