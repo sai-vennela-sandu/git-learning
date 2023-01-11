@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_var_adls",
+						"referenceName": "DS_M_SOURCE_ADLS_DB",
 						"type": "DatasetReference"
 					},
 					"name": "SOURCE1"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_var_db",
+						"referenceName": "DS_M_SINK_DB",
 						"type": "DatasetReference"
 					},
 					"name": "SINK1",
@@ -28,25 +28,24 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          RNO as string,",
-				"          Serial_Number as string,",
-				"          Company_Name as string,",
-				"          Employee_Markme as string,",
-				"          Descriptions as string,",
-				"          Leave as string",
+				"          orderid as string,",
+				"          ordername as string,",
+				"          orderprice as string,",
+				"          ordertype as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     limit: 613,",
 				"     ignoreNoFilesFound: false,",
-				"     moveFiles: ['sample/orders_2022-12-24.csv','Archive_task']) ~> SOURCE1",
+				"     moveFiles: ['sample','Archive_task'],",
+				"     rowUrlColumn: ($ORDER_DATE)) ~> SOURCE1",
 				"SOURCE1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          orderid as integer,",
-				"          ordername as string,",
-				"          orderprice as integer,",
-				"          ordertype as string",
+				"          Order_id as string,",
+				"          Order_name as string,",
+				"          Order_price as string,",
+				"          Order_type as string",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -56,6 +55,12 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Order_id = orderid,",
+				"          Order_name = ordername,",
+				"          Order_price = orderprice,",
+				"          Order_type = ordertype",
+				"     ),",
 				"     preCommands: [],",
 				"     postCommands: []) ~> SINK1"
 			]

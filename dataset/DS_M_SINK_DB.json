@@ -9,48 +9,25 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "ROW_ID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "STUDENT_NAME",
+				"name": "Order_id",
 				"type": "varchar"
 			},
 			{
-				"name": "SCHOOL_NAME",
+				"name": "Order_name",
 				"type": "varchar"
 			},
 			{
-				"name": "ADDRESS",
+				"name": "Order_price",
 				"type": "varchar"
 			},
 			{
-				"name": "CITY",
-				"type": "varchar"
-			},
-			{
-				"name": "COUNTRY",
-				"type": "varchar"
-			},
-			{
-				"name": "POSTAL",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "PHONE",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "EMAILID",
+				"name": "Order_type",
 				"type": "varchar"
 			}
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Student_details"
+			"table": "Order_update"
 		}
 	}
 }

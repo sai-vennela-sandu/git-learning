@@ -5,19 +5,14 @@
 			"referenceName": "LS_adls_db",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"file_name": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "student_2023-01-05.csv",
-				"folderPath": "task_con",
-				"fileSystem": "task"
+				"fileName": "order 2023-01-09.csv",
+				"folderPath": "sample",
+				"fileSystem": "raw"
 			},
 			"columnDelimiter": ",",
 			"rowDelimiter": "\r",
@@ -27,39 +22,19 @@
 		},
 		"schema": [
 			{
-				"name": "ROW_ID",
+				"name": "orderid",
 				"type": "String"
 			},
 			{
-				"name": "STUDENT_NAME",
+				"name": "ordername",
 				"type": "String"
 			},
 			{
-				"name": "SCHOOL_NAME",
+				"name": "orderprice",
 				"type": "String"
 			},
 			{
-				"name": "ADDRESS",
-				"type": "String"
-			},
-			{
-				"name": "CITY",
-				"type": "String"
-			},
-			{
-				"name": "COUNTRY",
-				"type": "String"
-			},
-			{
-				"name": "POSTAL",
-				"type": "String"
-			},
-			{
-				"name": "PHONE",
-				"type": "String"
-			},
-			{
-				"name": "EMAILID",
+				"name": "ordertype",
 				"type": "String"
 			}
 		]
