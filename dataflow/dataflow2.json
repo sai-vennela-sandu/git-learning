@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_M_ADLS_DB",
+						"referenceName": "DS_var_adls",
 						"type": "DatasetReference"
 					},
 					"name": "SOURCE1"
@@ -15,47 +15,49 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_M_SOURCE_ADLS_DB",
+						"referenceName": "DS_var_db",
 						"type": "DatasetReference"
 					},
-					"name": "SINK1"
+					"name": "SINK1",
+					"rejectedDataLinkedService": {
+						"referenceName": "LS_adls_db",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          STUDENT_NAME as string,",
-				"          SCHOOL_NAME as string,",
-				"          ADDRESS as string,",
-				"          CITY as string,",
-				"          COUNTRY as string,",
-				"          POSTAL as string,",
-				"          PHONE as string,",
-				"          EMAILID as string",
+				"          RNO as string,",
+				"          Serial_Number as string,",
+				"          Company_Name as string,",
+				"          Employee_Markme as string,",
+				"          Descriptions as string,",
+				"          Leave as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     limit: 613,",
 				"     ignoreNoFilesFound: false,",
-				"     moveFiles: ['/task_con','Archive_task']) ~> SOURCE1",
+				"     moveFiles: ['sample/orders_2022-12-24.csv','Archive_task']) ~> SOURCE1",
 				"SOURCE1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          ROW_ID as string,",
-				"          STUDENT_NAME as string,",
-				"          SCHOOL_NAME as string,",
-				"          ADDRESS as string,",
-				"          CITY as string,",
-				"          COUNTRY as string,",
-				"          POSTAL as string,",
-				"          PHONE as string,",
-				"          EMAILID as string",
+				"          orderid as integer,",
+				"          ordername as string,",
+				"          orderprice as integer,",
+				"          ordertype as string",
 				"     ),",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SINK1"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     preCommands: [],",
+				"     postCommands: []) ~> SINK1"
 			]
 		}
 	}
