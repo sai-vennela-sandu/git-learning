@@ -13,6 +13,263 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_var_db')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_db1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "orderid",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ordername",
+						"type": "varchar"
+					},
+					{
+						"name": "orderprice",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ordertype",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Order_2023"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_ADLS_DB_withdate')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Metadata_Files",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_Getdata_adls",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"childItems",
+								"itemName"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Metadata_Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Metadata_Files').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@equals(substring(item().name,0,10),formatDateTime(utcnow(),'yyyy-MM-dd'))",
+											"type": "Expression"
+										},
+										"ifFalseActivities": [
+											{
+												"name": "Wait_Stage",
+												"type": "Wait",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"waitTimeInSeconds": 1
+												}
+											}
+										],
+										"ifTrueActivities": [
+											{
+												"name": "Copy data_adls_db",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "DelimitedTextSource",
+														"storeSettings": {
+															"type": "AzureBlobFSReadSettings",
+															"recursive": true,
+															"enablePartitionDiscovery": false
+														},
+														"formatSettings": {
+															"type": "DelimitedTextReadSettings"
+														}
+													},
+													"sink": {
+														"type": "AzureSqlSink",
+														"preCopyScript": "truncate table [dbo].[Employee_details]",
+														"writeBehavior": "insert",
+														"sqlWriterUseTableLock": false,
+														"disableMetricsCollection": false
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_adls_db",
+														"type": "DatasetReference",
+														"parameters": {
+															"file_name": {
+																"value": "@{item().name}",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_DB1",
+														"type": "DatasetReference",
+														"parameters": {}
+													}
+												]
+											}
+										]
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy data_db_db",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"additionalColumns": [
+									{
+										"name": "current_dt",
+										"value": {
+											"value": "@utcnow()",
+											"type": "Expression"
+										}
+									}
+								],
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_DB1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_DB1_2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_with_FILEdate_COL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -140,9 +397,7 @@
 										{
 											"referenceName": "DS_var_adls",
 											"type": "DatasetReference",
-											"parameters": {
-												"file_name": "@{item().name}"
-											}
+											"parameters": {}
 										}
 									],
 									"outputs": [
@@ -168,7 +423,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_var_db')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
@@ -243,60 +500,64 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "DS_M_ADLS_DB",
+								"referenceName": "DS_var_adls",
 								"type": "DatasetReference"
 							},
-							"name": "SOURCE1"
+							"name": "source1"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "DS_M_SOURCE_ADLS_DB",
+								"referenceName": "DS_var_db",
 								"type": "DatasetReference"
 							},
-							"name": "SINK1"
+							"name": "sink1",
+							"rejectedDataLinkedService": {
+								"referenceName": "LS_adls_db",
+								"type": "LinkedServiceReference"
+							}
 						}
 					],
 					"transformations": [],
 					"scriptLines": [
 						"source(output(",
-						"          STUDENT_NAME as string,",
-						"          SCHOOL_NAME as string,",
-						"          ADDRESS as string,",
-						"          CITY as string,",
-						"          COUNTRY as string,",
-						"          POSTAL as string,",
-						"          PHONE as string,",
-						"          EMAILID as string",
+						"          orderid as string,",
+						"          ordername as string,",
+						"          orderprice as string,",
+						"          ordertype as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     limit: 613,",
+						"     limit: 650,",
 						"     ignoreNoFilesFound: false,",
-						"     moveFiles: ['/task_con','Archive_task']) ~> SOURCE1",
-						"SOURCE1 sink(allowSchemaDrift: true,",
+						"     moveFiles: ['/sample','Archive_task']) ~> source1",
+						"source1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
-						"          ROW_ID as string,",
-						"          STUDENT_NAME as string,",
-						"          SCHOOL_NAME as string,",
-						"          ADDRESS as string,",
-						"          CITY as string,",
-						"          COUNTRY as string,",
-						"          POSTAL as string,",
-						"          PHONE as string,",
-						"          EMAILID as string",
+						"          orderid as integer,",
+						"          ordername as string,",
+						"          orderprice as integer,",
+						"          ordertype as string",
 						"     ),",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> SINK1"
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          orderid,",
+						"          ordername,",
+						"          orderprice,",
+						"          ordertype",
+						"     )) ~> sink1"
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_var_db')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/MASTER_PIPELINE')]",
@@ -305,7 +566,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadata1",
+						"name": "Get Files",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -318,7 +579,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "DS_M_ADLS_DB",
+								"referenceName": "DS_getmetadata",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -341,7 +602,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Get Metadata1",
+								"activity": "Get Files",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -350,7 +611,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get Metadata1').output.childItems",
+								"value": "@activity('Get Files').output.childItems",
 								"type": "Expression"
 							},
 							"isSequential": true,
@@ -363,7 +624,7 @@
 									"typeProperties": {
 										"variableName": "Date",
 										"value": {
-											"value": "@split(split(item().name,'_')[1],'.')[0]",
+											"value": "@split(split(item().name,'_')[0],'.')[0]",
 											"type": "Expression"
 										}
 									}
@@ -393,10 +654,8 @@
 											"type": "DataFlowReference",
 											"parameters": {},
 											"datasetParameters": {
-												"SOURCE1": {},
-												"SINK1": {
-													"file_name": "@{item().name}"
-												}
+												"source1": {},
+												"sink1": {}
 											}
 										},
 										"staging": {},
@@ -409,6 +668,70 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "CPY_DB_DB",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"additionalColumns": [
+									{
+										"name": "File_date",
+										"value": {
+											"value": "@variables('Date')",
+											"type": "Expression"
+										}
+									}
+								],
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_var_db",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_SINK_SINK_DB",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -423,6 +746,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_var_db')]",
 				"[concat(variables('factoryId'), '/dataflows/dataflow2')]"
 			]
 		},
@@ -514,7 +838,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline_ADLS_DB_withdate')]"
+			]
 		}
 	]
 }
