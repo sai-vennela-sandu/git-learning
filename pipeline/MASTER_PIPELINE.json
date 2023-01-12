@@ -87,12 +87,7 @@
 							"typeProperties": {
 								"dataflow": {
 									"referenceName": "dataflow2",
-									"type": "DataFlowReference",
-									"datasetParameters": {
-										"SOURCE1": {
-											"file_name": "@{item().name}"
-										}
-									}
+									"type": "DataFlowReference"
 								},
 								"compute": {
 									"coreCount": 8,
@@ -128,7 +123,7 @@
 						"type": "AzureSqlSource",
 						"additionalColumns": [
 							{
-								"name": "ORDER_DATE",
+								"name": "File_date",
 								"value": {
 									"value": "@variables('Date')",
 									"type": "Expression"
@@ -146,128 +141,6 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ROW_ID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ROW_ID",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "STUDENT_NAME",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "STUDENT_NAME",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "SCHOOL_NAME",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "SCHOOL_NAME",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ADDRESS",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ADDRESS",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "CITY",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "CITY",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "COUNTRY",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "COUNTRY",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "POSTAL",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "POSTAL",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "PHONE",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "PHONE",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "EMAILID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "EMAILID",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Current_dt",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Current_dt",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							}
-						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,

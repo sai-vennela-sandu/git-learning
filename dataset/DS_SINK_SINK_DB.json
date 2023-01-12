@@ -7,51 +7,10 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [
-			{
-				"name": "ROW_ID",
-				"type": "varchar"
-			},
-			{
-				"name": "STUDENT_NAME",
-				"type": "varchar"
-			},
-			{
-				"name": "SCHOOL_NAME",
-				"type": "varchar"
-			},
-			{
-				"name": "ADDRESS",
-				"type": "varchar"
-			},
-			{
-				"name": "CITY",
-				"type": "varchar"
-			},
-			{
-				"name": "COUNTRY",
-				"type": "varchar"
-			},
-			{
-				"name": "POSTAL",
-				"type": "varchar"
-			},
-			{
-				"name": "PHONE",
-				"type": "varchar"
-			},
-			{
-				"name": "EMAILID",
-				"type": "varchar"
-			},
-			{
-				"name": "Current_dt",
-				"type": "varchar"
-			}
-		],
+		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Student_details"
+			"table": "Order_update"
 		}
 	}
 }
