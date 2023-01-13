@@ -18,14 +18,14 @@
 						"referenceName": "DS_var_db",
 						"type": "DatasetReference"
 					},
-					"name": "sink1",
-					"rejectedDataLinkedService": {
-						"referenceName": "LS_adls_db",
-						"type": "LinkedServiceReference"
-					}
+					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          orderid as string,",
@@ -38,7 +38,8 @@
 				"     limit: 650,",
 				"     ignoreNoFilesFound: false,",
 				"     moveFiles: ['/sample','Archive_task']) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive(File_date = substring(item().name,6,16)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          orderid as integer,",
@@ -51,13 +52,9 @@
 				"     updateable:false,",
 				"     upsertable:false,",
 				"     format: 'table',",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          orderid,",
-				"          ordername,",
-				"          orderprice,",
-				"          ordertype",
-				"     )) ~> sink1"
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
