@@ -1008,7 +1008,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "order 2023-01-09.csv",
+						"fileName": "order_2023-01-09.csv",
 						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
@@ -1134,8 +1134,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "ordertable 05-01-2023.csv",
-						"folderPath": "Staging",
+						"fileName": "order_2023-01-09.csv",
+						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ",",
@@ -1531,11 +1531,7 @@
 								"referenceName": "DS_var_db",
 								"type": "DatasetReference"
 							},
-							"name": "sink1",
-							"rejectedDataLinkedService": {
-								"referenceName": "LS_adls_db",
-								"type": "LinkedServiceReference"
-							}
+							"name": "sink1"
 						}
 					],
 					"transformations": [],
@@ -1564,20 +1560,15 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          orderid,",
-						"          ordername,",
-						"          orderprice,",
-						"          ordertype",
-						"     )) ~> sink1"
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_var_adls')]",
-				"[concat(variables('factoryId'), '/datasets/DS_var_db')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_adls_db')]"
+				"[concat(variables('factoryId'), '/datasets/DS_var_db')]"
 			]
 		}
 	]

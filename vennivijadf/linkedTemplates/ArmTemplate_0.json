@@ -500,7 +500,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "order 2023-01-09.csv",
+						"fileName": "order_2023-01-09.csv",
 						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
@@ -626,8 +626,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "ordertable 05-01-2023.csv",
-						"folderPath": "Staging",
+						"fileName": "order_2023-01-09.csv",
+						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ",",

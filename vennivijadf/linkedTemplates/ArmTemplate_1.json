@@ -512,11 +512,7 @@
 								"referenceName": "DS_var_db",
 								"type": "DatasetReference"
 							},
-							"name": "sink1",
-							"rejectedDataLinkedService": {
-								"referenceName": "LS_adls_db",
-								"type": "LinkedServiceReference"
-							}
+							"name": "sink1"
 						}
 					],
 					"transformations": [],
@@ -545,13 +541,9 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          orderid,",
-						"          ordername,",
-						"          orderprice,",
-						"          ordertype",
-						"     )) ~> sink1"
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 					]
 				}
 			},
