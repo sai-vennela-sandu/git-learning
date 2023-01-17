@@ -37,10 +37,10 @@
 				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          orderid as integer,",
-				"          ordername as string,",
-				"          orderprice as integer,",
-				"          ordertype as string",
+				"          Order_id as string,",
+				"          Order_name as string,",
+				"          Order_price as string,",
+				"          Order_type as string",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -49,7 +49,14 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Order_id = orderid,",
+				"          Order_name = ordername,",
+				"          Order_price = orderprice,",
+				"          Order_type = ordertype",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}

@@ -9,21 +9,19 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "orderid",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "ordername",
+				"name": "Order_id",
 				"type": "varchar"
 			},
 			{
-				"name": "orderprice",
-				"type": "int",
-				"precision": 10
+				"name": "Order_name",
+				"type": "varchar"
 			},
 			{
-				"name": "ordertype",
+				"name": "Order_price",
+				"type": "varchar"
+			},
+			{
+				"name": "Order_type",
 				"type": "varchar"
 			}
 		],
