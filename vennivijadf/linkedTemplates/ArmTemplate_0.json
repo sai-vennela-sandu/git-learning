@@ -626,7 +626,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "order_2023-01-09.csv",
+						"fileName": "order_2023-01-24.csv",
 						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
