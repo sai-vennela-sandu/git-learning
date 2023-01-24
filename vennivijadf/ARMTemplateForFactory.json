@@ -89,7 +89,7 @@
 									"typeProperties": {
 										"variableName": "Date",
 										"value": {
-											"value": "@split(split(item().name,'_')[0],'.')[0]",
+											"value": "@split(split(item().name,'_')[1],'.')[0]",
 											"type": "Expression"
 										}
 									}
@@ -171,11 +171,72 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Order_id",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Order_id",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Order_name",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Order_name",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Order_price",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Order_price",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Order_type",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Order_type",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "File_date"
+										},
+										"sink": {
+											"name": "File_date",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -518,6 +579,7 @@
 								"parameters": {}
 							},
 							"fieldList": [
+								"itemName",
 								"childItems"
 							],
 							"storeSettings": {
@@ -610,6 +672,56 @@
 										"enableStaging": false,
 										"translator": {
 											"type": "TabularTranslator",
+											"mappings": [
+												{
+													"source": {
+														"name": "orderid",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Order_id",
+														"type": "String",
+														"physicalType": "varchar"
+													}
+												},
+												{
+													"source": {
+														"name": "ordername",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Order_name",
+														"type": "String",
+														"physicalType": "varchar"
+													}
+												},
+												{
+													"source": {
+														"name": "orderprice",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Order_price",
+														"type": "String",
+														"physicalType": "varchar"
+													}
+												},
+												{
+													"source": {
+														"name": "ordertype",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Order_type",
+														"type": "String",
+														"physicalType": "varchar"
+													}
+												}
+											],
 											"typeConversion": true,
 											"typeConversionSettings": {
 												"allowDataTruncation": true,
@@ -1208,7 +1320,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "order_2023-01-09.csv",
+						"fileName": "order_2023-01-10.csv",
 						"folderPath": "sample",
 						"fileSystem": "raw"
 					},
@@ -1254,21 +1366,19 @@
 				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "orderid",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ordername",
+						"name": "Order_id",
 						"type": "varchar"
 					},
 					{
-						"name": "orderprice",
-						"type": "int",
-						"precision": 10
+						"name": "Order_name",
+						"type": "varchar"
 					},
 					{
-						"name": "ordertype",
+						"name": "Order_price",
+						"type": "varchar"
+					},
+					{
+						"name": "Order_type",
 						"type": "varchar"
 					}
 				],
@@ -1379,6 +1489,46 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_master')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Daily trigger for master",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "MASTER_PIPELINE",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2023-01-24T09:43:00",
+						"endTime": "2023-01-31T09:43:00",
+						"timeZone": "India Standard Time",
+						"schedule": {
+							"minutes": [
+								40
+							],
+							"hours": [
+								15
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/MASTER_PIPELINE')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_adls_db_trigger')]",
@@ -1550,10 +1700,10 @@
 						"source1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
-						"          orderid as integer,",
-						"          ordername as string,",
-						"          orderprice as integer,",
-						"          ordertype as string",
+						"          Order_id as string,",
+						"          Order_name as string,",
+						"          Order_price as string,",
+						"          Order_type as string",
 						"     ),",
 						"     deletable:false,",
 						"     insertable:true,",
@@ -1562,7 +1712,14 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          Order_id = orderid,",
+						"          Order_name = ordername,",
+						"          Order_price = orderprice,",
+						"          Order_type = ordertype",
+						"     ),",
+						"     partitionBy('hash', 1)) ~> sink1"
 					]
 				}
 			},
