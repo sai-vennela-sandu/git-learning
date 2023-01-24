@@ -1,0 +1,34 @@
+{
+	"name": "Trigger_master",
+	"properties": {
+		"description": "Daily trigger for master",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MASTER_PIPELINE",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2023-01-24T09:43:00",
+				"endTime": "2023-01-31T09:43:00",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						40
+					],
+					"hours": [
+						15
+					]
+				}
+			}
+		}
+	}
+}
