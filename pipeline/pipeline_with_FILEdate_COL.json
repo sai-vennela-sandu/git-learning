@@ -161,12 +161,6 @@
 												"type": "String",
 												"physicalType": "varchar"
 											}
-										},
-										{
-											"source": {
-												"name": "OrderDate",
-												"type": "String"
-											}
 										}
 									],
 									"typeConversion": true,
