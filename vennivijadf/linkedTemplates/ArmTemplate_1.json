@@ -978,10 +978,10 @@
 						"timeZone": "India Standard Time",
 						"schedule": {
 							"minutes": [
-								40
+								36
 							],
 							"hours": [
-								15
+								16
 							]
 						}
 					}
