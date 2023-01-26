@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_dls_db",
+						"referenceName": "DS_DF_Source",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -28,10 +28,10 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          orderid as string,",
-				"          ordername as string,",
-				"          orderprice as string,",
-				"          ordertype as string",
+				"          Column_1 as string,",
+				"          Column_2 as string,",
+				"          Column_3 as string,",
+				"          Column_4 as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
