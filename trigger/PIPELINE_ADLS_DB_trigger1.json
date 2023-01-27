@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "Daily trigger from adls to Db",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
